@@ -1,5 +1,5 @@
 let db = require('../config/database');
-let jwt = require('jsonwebtoken')
+// let jwt = require('jsonwebtoken')
 
 class User {
 
@@ -15,7 +15,7 @@ class User {
             this._id = result.id
             this._firstName = result.firstName
             this._lastName = result.lastName
-            this.email = result.email
+            this._email = result.email
             this._birthdayDate = result.birthdayDate
             this._codeAdmin = result.codeAdmin || null
         }
@@ -62,21 +62,21 @@ class User {
     }
 
     static all(callback) {
-        db.query('SELECT * FROM users',
+        db.query('SELECT * FROM user',
             function (err, users) {
                 callback(users.map((user) => new User(user)))
             })
     }
 
-    static all(callback) {
-        db.query('SELECT * FROM users',
-            function (err, users) {
-                callback(users.map((user) => new User(user)))
-            })
-    }
+    static allWhereBirthdayAtToday(callback) {
+        db.query('SELECT * FROM user WHERE MONTH(birthdayDate) = MONTH(NOW()) AND DAY(birthdayDate) = DAY(NOW())',
+          function (err, users) {
+            callback(users.map((user) => new User(user)))
+          })
+      }
 
     static create(firstName, lastName, email, birthdayDate) {
-        db.query('INSERT INTO users (firstName, lastName, email, birthdayDate) VALUES (?,?,?,?)', [firstName, lastName, email, birthdayDate], (err, res) => {
+        db.query('INSERT INTO user (firstName, lastName, email, birthdayDate) VALUES (?,?,?,?)', [firstName, lastName, email, birthdayDate], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
@@ -96,14 +96,14 @@ class User {
     }
 
     static loginAdmin(codeAdmin, callback) {
-        db.query('SELECT * FROM users WHERE codeAdmin = ?', [codeAdmin],
+        db.query('SELECT * FROM user WHERE codeAdmin = ?', [codeAdmin],
             function (err, users) {
                 callback(users.map((user) => new User(user)))
             })
     }
 
     static checkLoginAdmin(codeAdmin, callback) {
-        db.query('SELECT EXISTS(SELECT * FROM users WHERE codeAdmin = ?)', [parseInt(codeAdmin)], 
+        db.query('SELECT EXISTS(SELECT * FROM user WHERE codeAdmin = ?)', [parseInt(codeAdmin)], 
             function (err, admin) {
                 const value = Object.values(admin[0])[0]
                 if (value === 1) {
