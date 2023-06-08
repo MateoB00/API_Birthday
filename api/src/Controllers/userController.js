@@ -9,8 +9,10 @@ exports.listAllUsers = (req, res) => {
 }
 
 exports.listAllWhereBirthdayAtToday = (req, res) => {
+    console.log('dddddd')
     User.allWhereBirthdayAtToday((result) => {
         res.json(result);
+        console.log(result)
     })
 }
 

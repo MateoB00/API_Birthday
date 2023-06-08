@@ -8,39 +8,75 @@ import Character4 from "../../assets/character_4.svg";
 import "./Hero.css";
 
 function Hero() {
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    fetch('/all') // Remplacez "/pays" avec l'URL correcte pour la route de récupération des options
+      .then(response => response.json())
+      .then(data => {
+        setDatas(data);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching options:', error);
+      });
+  }, []);
+  
   function selectRandomCharacter() {
     const characters = [Character1, Character2, Character3, Character4];
     const randomIndex = Math.floor(Math.random() * characters.length);
     const selectedCharacter = characters[randomIndex];
     return selectedCharacter;
   }
-
-  const prenom = "max";
-  const nom = "Holloway";
   const nombre1 = "1";
-  const nombre2 = "2";
+ 
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [filled, setFilled] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
   const [Character, setCharacter] = useState(selectRandomCharacter());
-  // const [prenom, setPrenom] = useState('')
+  const [prenom, setPrenom] = useState('');
+  const [nom, setNom] = useState('');
+  const [nombre, setNombre] = useState('');
+  useEffect(() => {
+    fetch('/all')
+      .then(response => response.json())
+      .then(data => {
+        setDatas(data);
+        if (data[0]) {
+          setNombre(data.length);
+          setPrenom(data[0]._firstName);
+        setNom(data[0]._lastName);
+        setCurrentIndex(1);
+        }
+      
+      })
+      .catch(error => {
+        console.error('Error fetching options:', error);
+      });
+  }, []);
+
   useEffect(() => {
     if (filled < 100 && isRunning) {
       setTimeout(() => {
-        setFilled((prev) => {
-          const newFilled = prev + 2;
+        setFilled(prev => {
+          const newFilled = prev + 1;
+          console.log(prev)
           if (newFilled >= 100) {
             setCharacter(selectRandomCharacter());
-            // setPrenom()
+            setPrenom(datas[currentIndex % datas.length]._firstName);
+            setNom(datas[currentIndex % datas.length]._lastName);
+            setCurrentIndex(prevIndex => prevIndex + 1);
             setTimeout(() => {
               setFilled(0);
-            }, 0); // Délai de 1 seconde avant de réinitialiser à 0
-            return 100; // Assurer que la valeur finale est exactement 100
+            }, 500);
+            return 100;
           }
           return newFilled;
         });
       }, 150);
     }
-  }, [filled, isRunning]);
+  }, [filled, isRunning, currentIndex, datas]);
+
   return (
     <div className="hero">
       <div className="left-container">
@@ -82,7 +118,7 @@ function Hero() {
             ></div>
             <span>{filled}%</span>
           </div>
-          <p className="nombre2">{nombre2}</p>
+          <p className="nombre2">{nombre}</p>
         </div>
       </div>
     </div>

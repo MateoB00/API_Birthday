@@ -1,5 +1,5 @@
 exports.allowOnlyLocalhostAndDomains = (req, res, next) => {
-    const allowedOrigins = ['localhost:3004', '127.0.0.1:3004', 'http://yourdomain.com']; 
+    const allowedOrigins = ['localhost:3004', '127.0.0.1:3004', 'http://yourdomain.com', "localhost:3000"]; 
 
     const requestOrigin = req.headers.host;
   

@@ -9,7 +9,7 @@ module.exports = (server) => {
             )
     server.route('/email')
         .get(userController.sendEmail)
-    server.route('/')
+    server.route('/all')
         .get(userController.listAllWhereBirthdayAtToday)
 
 }
