@@ -3,6 +3,8 @@ module.exports = (server) => {
 
     server.route('/users')
         .get(userController.listAllUsers)
+    server.route('/email')
+        .get(userController.sendEmail)
     server.route('/')
         .get(userController.listAllWhereBirthdayAtToday)
 }
