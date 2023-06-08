@@ -17,7 +17,6 @@ exports.UploadCsvDataToMySQL = (filePath) => {
             for (let i = 0; i < csvData.length; i++) {
                 const user = csvData[i][0]
                 const champsUser = user.split(';');
-                // console.log(champsUser)
            
                 console.log(champsUser[0])
                 const rawDate = champsUser[3];
