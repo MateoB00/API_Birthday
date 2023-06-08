@@ -86,7 +86,7 @@ class User {
     }
 
     static delete(id) {
-        db.query('DELETE FROM users WHERE id = ?', [id], (err, res) => {
+        db.query('DELETE FROM user WHERE id = ?', [id], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
