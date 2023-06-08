@@ -1,0 +1,15 @@
+.wordings {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+.wordings p {
+margin-right: 2vw;
+}
+
+.wordings h1 {
+margin-left: 2vw;
+}
