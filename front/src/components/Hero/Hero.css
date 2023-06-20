@@ -6,7 +6,7 @@
   }
   /* Style du conteneur de gauche */
   .left-container {
-    background-color: #df80ac;
+    /* background-color: #df80ac; */
     width: 50%;
     height: 100vh;
     display: flex;
@@ -19,7 +19,10 @@
     position:relative
   }
   .left-container p {
-    font-size: 2vw;
+    font-size: 3vw;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bolder;
+    margin-top: 5vw;
   }
   @keyframes rotate {
     from {
@@ -73,6 +76,8 @@ top: 5vw;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bolder;
   }
   
 
@@ -105,13 +110,13 @@ top: 5vw;
   }
   .nombre1{
 padding-right: 1vw;
-font-family: roboto;
-font-weight: bold;
+font-family:'Courier New', Courier, monospace;
+font-weight: bolder;
   }
 .nombre2{
     padding-left: 1vw;
-    font-family: roboto;
-    font-weight: bold;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bolder;
 }
 .card-text {
     border-style: solid;
@@ -120,6 +125,11 @@ font-weight: bold;
     border-radius: 1vw;
     box-shadow: 10px 10px 0px rgba(252, 50, 178, 0.5);
 padding: 1vw;
+
+}
+.card-text p {
+  font-family:'Courier New', Courier, monospace;
+  font-style: italic;
 }
 .card-characters {
     border-style: solid;
@@ -127,4 +137,29 @@ padding: 1vw;
     width: 40vw;
     border-radius: 1vw;
     box-shadow: 10px 10px 0px rgba(252, 50, 178, 0.5);
+    
 }
+
+
+@keyframes bumpAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bump {
+  animation: bumpAnimation 0.5s ease-in-out;
+}
+.bump2{
+  animation: bumpAnimation 0.5s ease-in-out;
+}
+.bump3 {
+  animation: bumpAnimation 1s ease-in-out;
+}
+
