@@ -62,16 +62,18 @@ class User {
     }
 
     static all(callback) {
-        db.query('SELECT * FROM user',
+        db.query('SELECT firstName,lastName FROM user',
             function (err, users) {
                 callback(users.map((user) => new User(user)))
             })
     }
 
     static allWhereBirthdayAtToday(callback) {
-        db.query('SELECT firstName,lastName FROM user WHERE MONTH(birthdayDate) = MONTH(NOW()) AND DAY(birthdayDate) = DAY(NOW())',
+        db.query('SELECT * FROM user WHERE MONTH(birthdayDate) = MONTH(NOW()) AND DAY(birthdayDate) = DAY(NOW())',
           function (err, users) {
-            callback(users.map((user) => new User(user)))
+            callback(users.map((user) => 
+            new User(user)
+            ))
           })
       }
 

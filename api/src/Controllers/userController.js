@@ -9,7 +9,6 @@ exports.listAllUsers = (req, res) => {
 }
 
 exports.listAllWhereBirthdayAtToday = (req, res) => {
-    console.log('dddddd')
     User.allWhereBirthdayAtToday((result) => {
         res.json(result);
         console.log(result)
@@ -21,7 +20,8 @@ exports.addUsers = (req, res) => {
     console.log('CSV file data has been uploaded in mysql database ');
 }
 
-exports.sendEmail = (req, res) => {
+exports.sendEmail = () => {
+    console.log("aaaaa")
     const transporter = nodemailer.createTransport({
         host: 'sandbox.smtp.mailtrap.io',
         port: 587,
@@ -48,7 +48,5 @@ exports.sendEmail = (req, res) => {
               }
               });
           });
-      
-          res.send('E-mails d\'anniversaire envoyés');
-    })
+          })
 }
